@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,10 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')
-                ->select('id', 'judul', 'content', 'created_at')
-                ->where('active', true)
-                ->get();
+        $posts = Post::active()->get();
         
         $view_data = [
             'posts' => $posts
@@ -40,7 +38,7 @@ class PostController extends Controller
         $judul = $request->input('judul');
         $content = $request->input('content');
 
-        DB::table('posts')->insert([
+        Post::insert([
             'judul' => $judul,
             'content' => $content,
             'created_at' => date('Y-m-d H:i:s'),
@@ -55,10 +53,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        $post = DB::table('posts')
-                ->select('id', 'judul', 'content', 'created_at')
-                ->where('id', $id)
-                ->first();
+        $post = Post::where('id', $id)->first();
 
         $view_data = [
             'post' => $post
@@ -72,9 +67,7 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $post = DB::table('posts')
-                ->select('id', 'judul', 'content', 'created_at')
-                ->where('id', $id)
+        $post = Post::where('id', $id)
                 ->first();
         $view_data = [
             'post' => $post
@@ -91,8 +84,7 @@ class PostController extends Controller
         $judul = $request->input('judul');
         $content = $request->input('content');
 
-        DB::table('posts')
-            ->where('id', $id)
+        Post::where('id', $id)
             ->update([
                 'judul'=> $judul,
                 'content'=> $content,
@@ -107,8 +99,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('posts')
-        ->where('id', $id)
+        Post::where('id', $id)
         ->delete();
 
         return redirect('posts');
