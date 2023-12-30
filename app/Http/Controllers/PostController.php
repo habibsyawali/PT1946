@@ -19,7 +19,7 @@ class PostController extends Controller
             'posts' => $posts
         ];
 
-        return view('posts.index', $view_data);
+        return view ('posts.index', $view_data);
     }
 
     /**
@@ -54,9 +54,13 @@ class PostController extends Controller
     public function show(string $id)
     {
         $post = Post::where('id', $id)->first();
+        $comments = $post->comments()->get();
+        $total_comments = $post->total_comments();
 
         $view_data = [
-            'post' => $post
+            'post' => $post,
+            'comments'=>$comments,
+            'total_comments' => $total_comments
         ];
 
         return view('posts.show', $view_data);
