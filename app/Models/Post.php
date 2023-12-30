@@ -9,6 +9,12 @@ class Post extends Model
 {
     use HasFactory;
 
+    // isi fillable dengan filed db yang akan diisi lewat form html
+    public $fillable = [
+        'judul',
+        'content'
+    ];
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }
