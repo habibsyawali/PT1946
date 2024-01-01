@@ -17,6 +17,7 @@ use App\Http\Controllers\PostController;
 
 Route::get('login', [AuthController::class, 'login']);
 Route::post('login', [AuthController::class, 'authenticate']);
+Route::get('logout', [AuthController::class, 'logout']);
 
 Route::get('posts', [PostController::class, 'index']);
 Route::get('posts/create', [PostController::class, 'create']);

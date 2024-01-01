@@ -8,6 +8,10 @@
         </ul>
 
         <div class="text-end">
+          @if (Auth::check())   
+            <a href="{{ url('logout') }}" type="button" class="btn btn-outline-light me-2">Logout</a>
+          @endif
+          
           <a href="{{ url('login') }}" type="button" class="btn btn-outline-light me-2">Login</a>
         </div>
       </div>
