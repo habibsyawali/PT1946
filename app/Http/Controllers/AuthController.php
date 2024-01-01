@@ -54,6 +54,7 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password'))
         ]);
+        // email : syawalihbb@gmail.com | password : 12345
 
         return redirect('login');
     }
